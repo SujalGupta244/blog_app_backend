@@ -9,7 +9,7 @@ import cors from 'cors';
 import path from 'path'
 
 const app = express();
-var PORT = process.env.PORT || 5000;
+var PORT = process.env.PORT || 4000;
 
 env.config()
 app.use(cors());
