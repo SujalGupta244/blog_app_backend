@@ -1,12 +1,12 @@
 import express, { Router } from 'express';
 import mongoose from 'mongoose';
+import root from './routes/root'
 import userRouter from './routes/user-routes'
 import blogRouter from './routes/blog-routes';
 import cookieParser from 'cookie-parser';
 import env from 'dotenv';
 import cors from 'cors';
-
-// 
+import path from 'path'
 
 const app = express();
 var PORT = 5000;
@@ -16,9 +16,11 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
-app.use('/', ((req,res) =>{
-    res.render('Blog App Backend Server');
-}))
+//Allow serve static files if in production
+app.use(express.static(path.join("views")))
+// Route use to show html page directly by backend
+app.use("/", root)
+
 
 app.use('/api/user',userRouter)
 app.use('/api/blog',blogRouter)
