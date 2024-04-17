@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
 import mongoose from 'mongoose';
-import root from './routes/root'
-import userRouter from './routes/user-routes'
-import blogRouter from './routes/blog-routes';
+import root from './routes/root.js'
+import userRouter from './routes/user-routes.js'
+import blogRouter from './routes/blog-routes.js';
 import cookieParser from 'cookie-parser';
 import env from 'dotenv';
 import cors from 'cors';
