@@ -6,7 +6,6 @@ import cookieParser from 'cookie-parser';
 import env from 'dotenv';
 import cors from 'cors';
 
-
 // 
 
 const app = express();
@@ -16,6 +15,11 @@ env.config()
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
+
+app.use('/', ((req,res) =>{
+    res.render('Blog App Backend Server');
+}))
+
 app.use('/api/user',userRouter)
 app.use('/api/blog',blogRouter)
 
