@@ -30,6 +30,7 @@ mongoose.connect(`mongodb+srv://admin:${process.env.MONGODB_PASSWORD}@cluster0.k
 .then(()=>
 app.listen(PORT,()=>{
     console.log("Connected to database")
+    console.log(`Listening at ${PORT}`)
 }));
 
 // .then(()=>console.log("Hello world"))

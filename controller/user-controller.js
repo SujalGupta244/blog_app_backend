@@ -57,16 +57,17 @@ const login = async (req,res,next)=>{
         existingUser = await User.findOne({email})
     }catch(err){
         console.log(err);
+        return res.status(400).json({message:"No User Found"});
     }
 
     if(!existingUser){
-        res.status(400).json({message:"No User Found"});
+        return res.status(400).json({message:"No User Found"});
     }
 
     const isPasswordCorrect = bcrypt.compareSync(password,existingUser.password);
 
     if(!isPasswordCorrect){
-        res.status(400).json({message: "Invalid Email / password"});
+        return res.status(400).json({message: "Invalid Email / password"});
     }
 
     const token = jwt.sign({id:existingUser._id},process.env.JWT_SECRETE_KEY,{expiresIn: '1hr'});
@@ -88,7 +89,7 @@ const verifyToken = (req,res, next)=>{
     // const token = headers.split(" ")[1];
     console.log(token);
     if(!token){
-        res.status(404).json({message: 'No token found'});
+        return res.status(404).json({message: 'No token found'});
     }
     jwt.verify(String(token),process.env.JWT_SECRETE_KEY,(err, user)=>{
         if(err){
@@ -131,13 +132,13 @@ const refresh = async(req,res,next) =>{
     }
 
     if(!existingUser){
-        res.status(400).json({message:"No User Found"});
+        return res.status(400).json({message:"No User Found"});
     }
 
     const isPasswordCorrect = bcrypt.compareSync(password,existingUser.password);
 
     if(!isPasswordCorrect){
-        res.status(400).json({message: "Invalid Email / password"});
+        return res.status(400).json({message: "Invalid Email / password"});
     }
 
     const token = jwt.sign({id:existingUser._id},process.env.JWT_SECRETE_KEY,{expiresIn: '1hr'});
