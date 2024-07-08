@@ -48,7 +48,6 @@ const addBlog = async(req,res,next)=>{
         await existingUser.save({session});
         await session.commitTransaction();
     }catch(err){
-        console.log(err);
         return res.status(500).json({message: err})
     }
 
@@ -64,7 +63,7 @@ const updateBlog = async (req,res,next) =>{
             title, description
         });
     }catch(err){
-        console.log(err);
+        return res.status(500).json({message: err})
     }
 
     if(!blog){
@@ -80,7 +79,7 @@ const getBlogById = async(req,res,next) =>{
     try{
         blog = await Blog.findById(blogId)
     }catch(err){
-        return console.log(err);
+        return res.status(500).json({message: err})
     }
 
     if(!blog){
@@ -98,7 +97,7 @@ const deleteBlog = async(req,res,next)=>{
         await blog.user.blogs.pull(blog);
         await blog.user.save();
     }catch(err){
-        return console.log(err);
+        return res.status(500).json({message: err})
     }
 
     if(!blog){
@@ -113,7 +112,7 @@ const getBlogsByUserId = async(req,res,next)=>{
     try{
         userBlogs = await User.findById(userId).populate('blogs')
     }catch(err){
-        return console.log(err);
+        return res.status(500).json({message: err})
     }
 
     if(!userBlogs){
@@ -125,11 +124,3 @@ const getBlogsByUserId = async(req,res,next)=>{
 
 
 export {getAllBlogs, addBlog, updateBlog, getBlogById, deleteBlog, getBlogsByUserId};
-
-
-
-// {
-//     "name":"sujal",
-//     "email":"sujal1@gmail.com",
-//     "password":"12345678"
-//   }
